@@ -8,13 +8,13 @@ UK_Population=[0.56,0.62,0.04,9.7]
 China_Population=[0.58,8.4,29.9,22.2]
 
 #make dictionaries  
-assert len(UK_City) == len(UK_Population), "城市和人口数量不匹配"   
+assert len(UK_City) == len(UK_Population), "Mismatch between number of cities and population"   
 UK_Data = {}   
 for city, UK_Pop in zip(UK_City, UK_Population):  
     UK_Data[city] = UK_Pop  
 print(UK_Data)
 
-assert len(China_City) == len(China_Population), "城市和人口数量不匹配"   
+assert len(China_City) == len(China_Population), "Mismatch between number of cities and population"   
 China_Data = {}   
 for city, China_Pop in zip(China_City, China_Population):  
     China_Data[city] = China_Pop  
@@ -31,9 +31,7 @@ print(sorted_China_Cities)
 sorted_China_data_dict = dict(sorted_China_Cities)    
 print(sorted_China_data_dict)
 
-
-
-# 提取城市和人口数据用于绘图  
+# Extraction of city and population data for mapping  
 sorted_UK_cities, sorted_UK_pops = zip(*sorted_UK_Cities)  
 sorted_China_cities, sorted_China_pops = zip(*sorted_China_Cities)  
 
@@ -47,8 +45,6 @@ plt.title('Population of UK Cities')
 plt.xticks(rotation=45) 
 plt.tight_layout() 
 
-
-
 # Create bar plot for China cities
 plt.figure(figsize=(10, 6)) 
 plt.bar(sorted_China_cities, sorted_China_pops, color='red') 
@@ -59,5 +55,8 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 
 
-# 显示图形  
+#Show Pie Chart
 plt.show()
+
+#Close Pie Chart
+plt.clf()
