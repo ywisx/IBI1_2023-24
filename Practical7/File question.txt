@@ -1,1 +1,9 @@
-
+Question: how have DALYs changed in the UK over time?  
+  
+Python file code start line number: 32 (assuming modified code counts from line 1)  
+  
+Results Discussion:  
+The trend of DALYs in the UK over time can be seen by plotting a line graph. The graph shows whether DALYs in the UK have risen, fallen or remained stable year on year.  
+If DALYs are falling, this could mean that the UK is making progress in disease control and health management.  
+If DALYs are rising, the reasons may need to be further analyzed, for example there may be a rise in the incidence of specific diseases or health management practices are not effective enough.  
+Analyzing the data points in the graph can help us understand trends in DALYs in the UK and may guide future policy development and interventions.
