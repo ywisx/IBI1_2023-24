@@ -1,1 +1,5 @@
 
+After reading and understanding the text of the above material in depth, I have a clearer understanding of the SIR model, or Susceptible-Infected-Recovered (SIR) model, which is an important tool used to study the dynamics of infectious disease transmission in populations. It is based on three basic assumptions: that susceptible individuals may contract the disease, that infected individuals may transmit the disease to susceptible individuals, and that infected individuals may recover and become immune to the disease.
+
+Through this study, I deeply appreciate the important role of mathematical models in solving practical problems. At the same time, I also recognize my deficiencies in programming and data processing, which need to be improved in my future study.
+
