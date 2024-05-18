@@ -1,34 +1,65 @@
-# Initialize the array 
+# https://numpy.org/doc/stable/reference/index.html#reference
 import numpy as np  
+# https://matplotlib.org/stable/api/index.html
 import matplotlib.pyplot as plt  
+
   
-# Initialization parameters   
-N = 10000  
-I0 = 1  
-S0 = N - I0  
-R0 = 0  
+# init const parameters   
+population = 10000  
 beta = 0.3  
 gamma = 0.05  
+
+loopTimes = 1000
+
+
+# init test data
+def initData():
+    S = np.zeros(loopTimes)  
+    I = np.zeros(loopTimes)  
+    R = np.zeros(loopTimes)  
+    S[0] = population - I[0]
+    return S, I, R
+
+
+# SIR model loop
+def sirModelLoop(S, I, R, index, vaccination_rate):  
+     # account for this by multiplying beta by the proportion of infected people in the population
+    p0 =  (population - I[index - 1]) / population * beta 
+    p0 *= (1 - (vaccination_rate / 100.0))
+    
+    # print(vaccination_rate, p0)
+
+    # repeat multiple times, with probability
+    arr = np.random.choice([1,0], S[index-1],p=[p0, 1-p0])
+    # 1 means "will be infected", 0 means "No", count the "infected" number
+    new_infections = np.count_nonzero(arr)
+
+    # same logic for "recovered"
+    arr = np.random.choice([1,0], I[index-1], p=[gamma, 1-gamma])
+    new_recoveries = np.count_nonzero(arr)
+    
+   
+    # update for next loop
+    S[index] = S[index - 1] - new_infections  
+    I[index] = I[index - 1] + new_infections - new_recoveries  
+    R[index] = R[index - 1] + new_recoveries
+    print('#%d: vaccination %d%% infected %d=>%d  +%d -%d' % (index+1, vaccination_rate, I[index - 1], I[index], new_infections, new_recoveries))
+
   
-# Initialize the array  
-S = np.zeros(1000)  
-I = np.zeros(1000)  
-R = np.zeros(1000)  
-S[0] = S0  
-I[0] = I0  
-R[0] = R0  
-  
-# SIR model
-for t in range(1, 1000):  
-    new_infections = np.random.binomial(S[t-1], beta * I[t-1] / N)  
-    new_recoveries = np.random.binomial(I[t-1], gamma)  
-    S[t] = S[t-1] - new_infections  
-    I[t] = I[t-1] + new_infections - new_recoveries  
-    R[t] = R[t-1] + new_recoveries  
-  
-# plot the results
-plt.plot(S, label='Susceptible')  
-plt.plot(I, label='Infected')  
-plt.plot(R, label='Recovered')  
-plt.legend()  
-plt.show()
+if __name__=='__main__':
+    S, I, R  = initData()
+    for t in range(1, loopTimes):
+        sirModelLoop(S, I, R, t, 0)
+
+    # plot SIR modle results
+    plt.figure( figsize =(6 ,4) , dpi=150)
+    plt.title("SIR Model")
+    plt.xlabel("Time")
+    plt.ylabel("number of people")
+    
+    plt.plot(S, label='Susceptible')  
+    plt.plot(I, label='Infected')  
+    plt.plot(R, label='Recovered')  
+    plt.legend()  
+    plt.show()
+

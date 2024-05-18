@@ -1,50 +1,31 @@
-# Initialize the array 
+# import our base file
+import SIR
+
+# https://numpy.org/doc/stable/reference/index.html#reference
 import numpy as np  
-import matplotlib.pyplot as plt  
-  
-# Initialization parameters  
-N = 10000  
-I0 = 1  
-S0 = N - I0  
-R0 = 0  
-beta = 0.3  
-gamma = 0.05  
-  
-# Initialize the array  
-S = np.zeros(1000)  
-I = np.zeros(1000)  
-R = np.zeros(1000)  
-S[0] = S0  
-I[0] = I0  
-R[0] = R0  
+# https://matplotlib.org/stable/api/index.html
+import matplotlib.pyplot as plt
 
-vaccination_rate = 0.1   
-S0_vaccinated = int(S0 * vaccination_rate)  
-S0_non_vaccinated = S0 - S0_vaccinated  
   
-  
-S_vaccinated = np.zeros(1000)  
-S_non_vaccinated = np.zeros(1000)  
-S_vaccinated[0] = S0_vaccinated  
-S_non_vaccinated[0] = S0_non_vaccinated  
-I = np.zeros(1000)  
-I[0] = I0  
-R = np.zeros(1000)  
+# from 0% to 100% of vaccination rates
+vaccination_rates = [0,10,20,30,40,50,60,70,80,90,100]
+# vaccination_rates = [10,50,80]        #used for test only
 
 
-# SIR model updated to account for vaccinations  
-for t in range(1, 1000):  
-    
-    new_infections = np.random.binomial(S_non_vaccinated[t-1], beta * I[t-1] / N)  
-    new_recoveries = np.random.binomial(I[t-1], gamma)  
-    S_non_vaccinated[t] = S_non_vaccinated[t-1] - new_infections  
-    S_vaccinated[t] = S_vaccinated[t-1]    
-    I[t] = I[t-1] + new_infections - new_recoveries  
-    R[t] = R[t-1] + new_recoveries  
-  
-# plot the results
-plt.plot(S_vaccinated + S_non_vaccinated, label='Susceptible')  
-plt.plot(I, label='Infected')  
-plt.plot(R, label='Recovered')  
-plt.legend()  
-plt.show()
+if __name__=='__main__':
+    # plot the results
+    plt.title("SIR model with different vaccination rates")
+    plt.xlabel("Time")
+    plt.ylabel("number of people")
+
+    for rate in vaccination_rates:
+        S, I, R = SIR.initData()
+        for t in range(1, SIR.loopTimes):
+            SIR.sirModelLoop(S, I, R, t, rate)
+
+        #save it and start new plot data with only "infected" array
+        label = "%d%%" % rate
+        plt.plot(I, label=label)
+        
+    plt.legend()
+    plt.show()
