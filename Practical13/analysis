@@ -1,1 +1,9 @@
+the identity percentage is 92.53968253968254% between Human and Mouse 
+the BLOSUM62 distance is 3137.0 between Human and Mouse
+the identity percentage is 91.74603174603175% between Human and Rat 
+the BLOSUM62 distance is 3107.0 between Human and Rat
+the identity percentage is 96.82539682539682% between Rat and Mouse 
+the BLOSUM62 distance is 3261.0 between Rat and Mouse
+The greater the BLOSUM62 distance is, the more similar their sequences are.
+So according to BLOSUM62 distance and percentage identity, human SLC6A4 gene sequence is more like the mouse than the rat, and mouse and cat is more like each other than human.
 
